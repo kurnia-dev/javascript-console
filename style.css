@@ -16,10 +16,11 @@ body {
   border: 1px solid #fff2ff1b;
   margin: 30px;
   border-radius: 2px;
-  min-height: 300px;
+  height: 300px;
+  overflow-y: auto;
   font-size: 1.4em;
   font-family: monospace;
-  padding: 10px 0;
+  padding: 10px 0 0;
 }
 
 textarea.console-input {
@@ -49,13 +50,13 @@ textarea.console-input {
   display: inline-block;
 }
 
-.console-history .console-output::before,
+.console-history .console-input::before,
 .input-wrapper::before {
   content: ">  ";
   color: rgb(232, 103, 236);
 }
 
-.console-history .console-input::before {
+.console-history .console-output::before {
   content: "<-  ";
   color: rgb(255, 225, 152);
 }
