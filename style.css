@@ -23,13 +23,16 @@ body {
 }
 
 textarea.console-input {
-  all: unset;
+  background: none;
+  outline: none;
+  color: inherit;
   box-sizing: border-box;
   caret-color: #fff2ff68;
   width: 100%;
   resize: none;
   overflow: hidden;
-  line-break: anywhere;
+  margin: 0;
+  font-size: inherit;
 }
 
 .input-wrapper,
