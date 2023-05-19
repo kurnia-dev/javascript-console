@@ -59,6 +59,11 @@ textarea.console-input {
   flex-shrink: 0; /* to maintain the width from shrinking */
 }
 
+.console-history .console-input,
+textarea.console-input {
+  color: #fcaeff;
+}
+
 .console-history .console-input::before,
 .input-wrapper::before {
   content: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" viewBox="0 0 256 256"%3E%3Cpath fill="%23e867ec" d="m184.49 136.49l-80 80a12 12 0 0 1-17-17L159 128L87.51 56.49a12 12 0 1 1 17-17l80 80a12 12 0 0 1-.02 17Z"%2F%3E%3C%2Fsvg%3E');
