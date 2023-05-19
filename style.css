@@ -21,6 +21,13 @@ body {
   font-size: 1.4em;
   font-family: monospace;
   padding: 10px 0 0;
+  /* work on firefox */
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  /* work on chrome and edge */
+  width: 0;
 }
 
 textarea.console-input {
@@ -63,4 +70,8 @@ textarea.console-input {
 
 .input-wrapper {
   display: flex;
+}
+
+.console-output.error {
+  color: #ff7272;
 }
