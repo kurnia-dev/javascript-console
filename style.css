@@ -28,6 +28,8 @@ textarea.console-input {
   caret-color: #fff2ff68;
   width: 100%;
   resize: none;
+  overflow: hidden;
+  line-break: anywhere;
 }
 
 .input-wrapper,
