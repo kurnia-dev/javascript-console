@@ -104,3 +104,9 @@ textarea.console-input {
 .console-output.undefined {
   color: #d0d0d0ab;
 }
+
+@media screen and (max-width: 580px) {
+  .console-wrapper {
+    font-size: 1.2em;
+  }
+}
