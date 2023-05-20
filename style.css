@@ -10,13 +10,26 @@ body {
   color: white;
 }
 
+.console-output .message {
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.message ul {
+  list-style: circle;
+}
+
+.message li {
+  padding: 6px 0;
+}
+
 .console-wrapper {
   background: #0d0d0d;
   color: white;
   border: 1px solid #fff2ff1b;
   margin: 30px;
   border-radius: 2px;
-  height: 300px;
+  height: 500px;
   overflow-y: auto;
   font-size: 1.4em;
   font-family: monospace;
