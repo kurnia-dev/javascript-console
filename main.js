@@ -46,8 +46,16 @@ textarea.addEventListener('keydown', (e) => {
             let scrollHeight = consoleWrapper.scrollHeight + 2 // 2 is for the border width -> 1px top-bottom
             let height = consoleWrapper.offsetHeight // get the height of the wrapper
             consoleWrapper.scrollTo(0, (scrollHeight - height)) // to scroll down
+
+
+            saveHistory(code) // save the history to localstorage
         }
+
+        logIndex = logHistory.length - 1 // to reset the logIndex if Enter pressed
     } 
+    
+    if (e.key == "ArrowUp") getHistory('up', e.target.selectionStart)
+    if (e.key == "ArrowDown") getHistory('down', e.target.selectionStart)
 })
 
 // Create script to evaluate/execute the code from console input
@@ -68,4 +76,52 @@ function addToHistory(code, output) {
     consoleInput.classList.add('console-input')
     consoleInput.innerText = code // using innertext to maintain the breaking line
     consoleHistory.append(consoleInput, consoleOutput)
+}
+
+
+// save the console input history to array, can be accessed again with arrow up and down
+// like the real browser console
+const logHistory = localStorage.getItem('logHistory') != null ? // if logHistory exist in localstorage
+    JSON.parse(localStorage.getItem('logHistory')) // asign logHistory value
+    : [] // else, asign empty array
+ 
+let logIndex = logHistory.length // used in getHostory()
+
+
+let saveHistory = code => { // save the log history to localstorage
+    let logItem = localStorage.logHistory != null ? // if localHistory is exist
+        JSON.parse(localStorage.logHistory) // get the last saved loghistory
+        : [] // if not exist, asign empty arrau
+    
+    localStorage.logHistory == null ? // // if localHistory is not exist
+        logHistory.push(code) // push the code into logHistory Array 
+        : logItem.push(code) // else, push into logItem
+    
+    // either logItem or logHistory will be pushed (using setItem) into localstorage
+
+    localStorage.getItem('logHistory') == null ?
+        localStorage.setItem('logHistory', JSON.stringify(logHistory))
+        : localStorage.setItem('logHistory', JSON.stringify(logItem))
+    
+    // to update The Loghistory Array value
+    logHistory.push(code) 
+}
+
+
+let getHistory = (direction, caretPos) => {//loaf the console history by pressing arrowUp and Down
+
+    if (caretPos == textarea.value.length || caretPos == 0) { 
+        // to load hostory only if the caret position is at the end or the begining  of the textare
+        
+        if (logHistory.length != 0) {
+            if (direction == "up") {
+                textarea.value = logIndex <= 0 ? // to prevent the log index have negative value
+                    logHistory[0] : logHistory[--logIndex] 
+            } else {
+                textarea.value = logIndex >= logHistory.length - 1 ?   // to prevent the log index have value more than log history length
+                logHistory[logHistory.length - 1] : logHistory[logIndex++]
+            }
+        }
+
+    }
 }
