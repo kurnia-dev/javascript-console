@@ -53,6 +53,7 @@ textarea.console-input {
   overflow: hidden;
   margin: 0;
   font-size: inherit;
+  border: none;
 }
 
 .input-wrapper,
