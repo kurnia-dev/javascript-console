@@ -108,5 +108,12 @@ textarea.console-input {
 @media screen and (max-width: 580px) {
   .console-wrapper {
     font-size: 1.2em;
+    margin: 20px;
+  }
+}
+@media screen and (max-width: 380px) {
+  .console-wrapper {
+    font-size: 1em;
+    margin: 14px;
   }
 }
