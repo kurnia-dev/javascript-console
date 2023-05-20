@@ -75,7 +75,8 @@ function addToHistory(code, output) {
     let consoleInput = document.createElement('div')
     consoleInput.classList.add('console-input')
     consoleInput.innerText = code // using innertext to maintain the breaking line
-    consoleHistory.append(consoleInput, consoleOutput)
+    if (code != 'clear()') consoleHistory.append(consoleInput, consoleOutput) // only append if code is not clear()
+    // if code is clear(), it will delete all history element
 }
 
 
@@ -123,5 +124,17 @@ let getHistory = (direction, caretPos) => {//loaf the console history by pressin
             }
         }
 
+    }
+}
+
+function clear() { // override the default clear() method
+    Array.from(consoleHistory.children).forEach(child => {
+        child.remove()
+    })
+}
+
+const console = { // override the default console.log() method
+    log(val) {
+        return eval(val)
     }
 }
