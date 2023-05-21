@@ -10,6 +10,19 @@ function resize() {
     textarea.style.height = (textarea.scrollHeight) + 'px' // then set again the height
 }
 
+// ======================================================================= //
+
+let codeHistory = '' // here i make a variable to store all inputed code
+// every new input will be combined to the old input
+// then all inputed code will executed together
+// by doing this, if we enter a new line of code, the value will be saved and can be used again
+// e.g:
+// 1st input => let a = 2  *it will declare variable 'a', the value can be used again in the next input
+// 2nd input => a + 2 * now, the old value of 'a' is 2, then sum old 'a' with '2', 'a' is now '4'
+// the 'a' value can be used again and again
+
+// ======================================================================= //
+
 textarea.addEventListener('keydown', (e) => {
     if (e.key == 'Tab') {
         e.preventDefault() // by default tab key is for change elements focus
@@ -33,12 +46,16 @@ textarea.addEventListener('keydown', (e) => {
             let code = textarea.value
             let output
             try {
-                output = eval(code) // if not error, output will have eval(code) return value
+                eval(codeHistory + '\n' + code) // here i try evaluate codeHistory + new code, 
+                // if the eval() generates error, the codes bellow will not executed, 
+                // the error message will be catched and asigned to output
+                codeHistory += '\n' + code // if not error, then add new code to the history
+                output = eval(codeHistory) // if not error, output will have eval(codeHistory) return value
             } catch (err) {
-                output = err // but if eval(code) return error, the error message will be asigned to ouput
+                output = err // but if eval(codeHistory) return error, the error message will be asigned to ouput
             }
     
-            addToHistory(code, output) // adding to history
+            addToHistory(code, output) // adding to console-history element
             textarea.value = "" // to reset textarea
     
             // to automatic scroll down when press Enter and the height of console is over that the wrapper
@@ -51,14 +68,14 @@ textarea.addEventListener('keydown', (e) => {
             saveHistory(code) // save the history to localstorage
         }
 
-        logIndex = logHistory.length - 1 // to reset the logIndex if Enter pressed
+        logIndex = logHistory.length // to reset the logIndex if Enter pressed
     } 
     
     if (e.key == "ArrowUp") getHistory('up', e.target.selectionStart)
     if (e.key == "ArrowDown") getHistory('down', e.target.selectionStart)
 })
 
-// Create script to evaluate/execute the code from console input
+// the function bellow will add the code inputed and its result to Console-history element as new children element
 const consoleHistory = document.querySelector('.console-history')
 
 function addToHistory(code, output) {
