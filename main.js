@@ -65,7 +65,7 @@ textarea.addEventListener('keydown', (e) => {
             consoleWrapper.scrollTo(0, (scrollHeight - height)) // to scroll down
 
 
-            saveHistory(code) // save the history to localstorage
+            saveHistory(code) // save the history to sessionStorage
         }
 
         logIndex = logHistory.length // to reset the logIndex if Enter pressed
@@ -99,27 +99,27 @@ function addToHistory(code, output) {
 
 // save the console input history to array, can be accessed again with arrow up and down
 // like the real browser console
-const logHistory = localStorage.getItem('logHistory') != null ? // if logHistory exist in localstorage
-    JSON.parse(localStorage.getItem('logHistory')) // asign logHistory value
+const logHistory = sessionStorage.getItem('logHistory') != null ? // if logHistory exist in sessionStorage
+    JSON.parse(sessionStorage.getItem('logHistory')) // asign logHistory value
     : [] // else, asign empty array
  
 let logIndex = logHistory.length // used in getHostory()
 
 
-let saveHistory = code => { // save the log history to localstorage
-    let logItem = localStorage.logHistory != null ? // if localHistory is exist
-        JSON.parse(localStorage.logHistory) // get the last saved loghistory
+let saveHistory = code => { // save the log history to sessionStorage
+    let logItem = sessionStorage.logHistory != null ? // if localHistory is exist
+        JSON.parse(sessionStorage.logHistory) // get the last saved loghistory
         : [] // if not exist, asign empty arrau
     
-    localStorage.logHistory == null ? // // if localHistory is not exist
+    sessionStorage.logHistory == null ? // // if localHistory is not exist
         logHistory.push(code) // push the code into logHistory Array 
         : logItem.push(code) // else, push into logItem
     
-    // either logItem or logHistory will be pushed (using setItem) into localstorage
+    // either logItem or logHistory will be pushed (using setItem) into sessionStorage
 
-    localStorage.getItem('logHistory') == null ?
-        localStorage.setItem('logHistory', JSON.stringify(logHistory))
-        : localStorage.setItem('logHistory', JSON.stringify(logItem))
+    sessionStorage.getItem('logHistory') == null ?
+        sessionStorage.setItem('logHistory', JSON.stringify(logHistory))
+        : sessionStorage.setItem('logHistory', JSON.stringify(logItem))
     
     // to update The Loghistory Array value
     logHistory.push(code) 
